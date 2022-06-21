@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:widget_view/widget_view.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -30,10 +28,20 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageController extends State<MyHomePage> {
   int counter = 0;
+  String text = "You have pushed the button this many times:";
 
   void incrementCounter() {
     setState(() {
       counter++;
+    });
+    if (counter == 10) {
+      setText("Eres un pesaico. $text");
+    }
+  }
+
+  void setText(String t) {
+    setState(() {
+      text = t;
     });
   }
 
@@ -64,8 +72,8 @@ class MyHomeExtraPageView
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
+              Text(
+                controller.text,
               ),
               Text(
                 '${controller.counter}',
@@ -81,8 +89,10 @@ class MyHomeExtraPageView
 
 class MyHomePageView
     extends StatefulWidgetView<MyHomePage, MyHomePageController> {
-  const MyHomePageView(MyHomePageController controller, {Key? key})
-      : super(controller, key: key);
+  MyHomePageView(MyHomePageController controller, {Key? key})
+      : super(controller, key: key) {
+    //controller.setText("Has pulsado el botoncico:"); //TODO Esto se llama cada vez que cambia el estado... con lo cual queda fijo
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +104,7 @@ class MyHomePageView
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Has pulsado el botoncico:',
-            ),
+            Text(controller.text),
             Text(
               '${controller.counter}',
               style: Theme.of(context).textTheme.headline4,

@@ -59,23 +59,21 @@ class MyHomeExtraPageView
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '${controller.counter}',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: GestureDetector(
+          onTap: controller.incrementCounter,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                '${controller.counter}',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: controller.incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
